@@ -39,14 +39,15 @@ export class DiagramComponent implements AfterViewInit {
   fillColor: any;
   loading = true;
 
-  constructor(private zone: NgZone, private api: APIService, private util: UtilService) {
-    this.api.getDiagramData()
-      .subscribe(data => {
-        this.data = data;
-        this.loading = false;
-        this.allNetworks = this.getAllNetworkTypes(this.data);
-        this.initDiagram();
-      });
+  constructor(private zone: NgZone, private api: APIService, private util: UtilService) { }
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.data = this.util.getTestData();
+      this.allNetworks = this.getAllNetworkTypes(this.data);
+      this.loading = false;
+      this.initDiagram();
+    }, 1000);
   }
 
   ngAfterViewInit() {
